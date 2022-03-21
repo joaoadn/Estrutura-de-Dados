@@ -34,6 +34,7 @@ class tabelaHash {
         // vetor de ponteiros de nós (lista implícita para tratar colisões)
         noh** elementos;
         int capacidade;
+        int posicao;
     public:
         // construtor padrão
         tabelaHash(int cap = 100);
@@ -51,6 +52,7 @@ class tabelaHash {
 tabelaHash::tabelaHash(int cap) {
     elementos = new noh*[cap];
     capacidade = cap;
+    posicao = 0;
 
     for (int i = 0; i < cap; i++) {
         elementos[i] = NULL;
@@ -69,12 +71,24 @@ tabelaHash::~tabelaHash() {
             delete aux;
         }
     }
+    posicao = 0;
     delete[] elementos;
 }
 
 // insere um valor v com chave c
 void tabelaHash::insere(string c, string v) {
-// código devorado pela horda
+    if(percorre(valor.chave) != -1){
+        cout << "ITEM JA ESTA NA TABELA"
+    }
+    else{
+        if(posicao == 100)
+        cout << "NUMERO MAXIMO DE COLISOES PARA A CHAVE" << endl;
+        else{
+            elementos[posicao] = v;
+            posicao++;
+        }
+    }
+
 }
 
 // recupera um valor associado a uma dada chave
