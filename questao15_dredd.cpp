@@ -34,7 +34,6 @@ class tabelaHash {
         // vetor de ponteiros de nós (lista implícita para tratar colisões)
         noh** elementos;
         int capacidade;
-        int posicao;
     public:
         // construtor padrão
         tabelaHash(int cap = 100);
@@ -42,6 +41,8 @@ class tabelaHash {
         ~tabelaHash();
         // insere um valor v com chave c
         void insere(string c, string v);
+
+        string busca(string c);
         // recupera um valor associado a uma dada chave
         string recupera(string c);
         // percorrendo a tabela hash (para fins de depuração)
@@ -52,7 +53,6 @@ class tabelaHash {
 tabelaHash::tabelaHash(int cap) {
     elementos = new noh*[cap];
     capacidade = cap;
-    posicao = 0;
 
     for (int i = 0; i < cap; i++) {
         elementos[i] = NULL;
@@ -71,31 +71,52 @@ tabelaHash::~tabelaHash() {
             delete aux;
         }
     }
-    posicao = 0;
     delete[] elementos;
+}
+
+string tabelaHash::busca(string c){
+	int pos = funcaoHash(c,capacidade);
+	
+	if(elementos[pos] != NULL and elementos[pos] -> chave == c)
+        return elementos[pos] -> valor;
+    else {
+        noh* atual = elementos[pos];
+        while ((atual != NULL) and (atual -> chave != c)) {
+            atual = atual->proximo;
+        }
+            if ((atual != NULL) and (atual -> chave == c)){
+                return atual->valor;
+            } 
+            else {
+                return "NULL";
+            }
+        }
+      
 }
 
 // insere um valor v com chave c
 void tabelaHash::insere(string c, string v) {
-    if(percorre(valor.chave) != -1){
-        cout << "ITEM JA ESTA NA TABELA"
-    }
-    else{
-        if(posicao == 100)
-        cout << "NUMERO MAXIMO DE COLISOES PARA A CHAVE" << endl;
-        else{
-            elementos[posicao] = v;
-            posicao++;
-        }
-    }
-
+    int pos = funcaoHash(c,capacidade);
+	
+	if(elementos[pos] == NULL){
+		noh* novo = new noh();
+		elementos[pos] = novo;
+	}
+	else{
+		noh* atual = elementos[pos];
+		
+		while(atual -> proximo != NULL){
+			atual = atual -> proximo;
+		}
+		
+		noh* novo = new noh();
+		atual -> proximo = novo;
+	}
 }
 
 // recupera um valor associado a uma dada chave
 string tabelaHash::recupera(string c) {
-// código estraçalhado pela horda
 }
-
 
 // percorrendo a tabela hash (para fins de depuração)
 void tabelaHash::percorre( ) {
@@ -146,3 +167,4 @@ int main( ) {
 
     return 0;
 }
+
