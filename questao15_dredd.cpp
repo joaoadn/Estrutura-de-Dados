@@ -74,44 +74,8 @@ tabelaHash::~tabelaHash() {
     delete[] elementos;
 }
 
-string tabelaHash::busca(string c){
-	int pos = funcaoHash(c,capacidade);
-	
-	if(elementos[pos] != NULL and elementos[pos] -> chave == c)
-        return elementos[pos] -> valor;
-    else {
-        noh* atual = elementos[pos];
-        while ((atual != NULL) and (atual -> chave != c)) {
-            atual = atual->proximo;
-        }
-            if ((atual != NULL) and (atual -> chave == c)){
-                return atual->valor;
-            } 
-            else {
-                return "NULL";
-            }
-        }
-      
-}
-
 // insere um valor v com chave c
 void tabelaHash::insere(string c, string v) {
-    int pos = funcaoHash(c,capacidade);
-	
-	if(elementos[pos] == NULL){
-		noh* novo = new noh();
-		elementos[pos] = novo;
-	}
-	else{
-		noh* atual = elementos[pos];
-		
-		while(atual -> proximo != NULL){
-			atual = atual -> proximo;
-		}
-		
-		noh* novo = new noh();
-		atual -> proximo = novo;
-	}
 }
 
 // recupera um valor associado a uma dada chave
