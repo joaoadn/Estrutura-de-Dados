@@ -12,13 +12,13 @@ private:
 
 public:
     // noh();
-    Noh(int dado = 0);
+    Noh(int _dado);
 };
 
 // construir dado a partir de um construtor
-Noh::Noh(int dado = 0)
+Noh::Noh(int _dado = 0)
 {
-    dado = dado;
+    dado = _dado;
     proximo = NULL;
     anterior = NULL;
 }
@@ -36,10 +36,10 @@ public:
     ListaDuploEncadeada();
     ~ListaDuploEncadeada();
     // insercao, remoçao de repetidos e impressao, tanto normal quanto reversa
-    void Insere(int dado);
-    void InsereNoInicio(int dado);
-    void InsereNoFim(int dado);
-    void InsereNaPosicao(int dado, int pos);
+    void Insere(int _dado);
+    void InsereNoInicio(int _dado);
+    void InsereNoFim(int _dado);
+    void InsereNaPosicao(int _dado, int _pos);
     void RemoveRepetidos();
     void Imprime();
     void ImpressaoReversa();
@@ -69,24 +69,24 @@ ListaDuploEncadeada::~ListaDuploEncadeada()
 }
 
 // insere um dado na lista 
-void ListaDuploEncadeada::Insere(int dado)
+void ListaDuploEncadeada::Insere(int _dado)
 {
-    Noh *novoNoh = new Noh(dado);
+    Noh *novoNoh = new Noh(_dado);
     primeiro = novoNoh;
     ultimo = novoNoh;
     tamanho++;
 }
 
 // insere no inicio
-void ListaDuploEncadeada::InsereNoInicio(int dado)
+void ListaDuploEncadeada::InsereNoInicio(int _dado)
 {
     if (primeiro == NULL)
     {
-        Insere(dado);
+        Insere(_dado);
     }
     else
     {
-        Noh *novoNoh = new Noh(dado);
+        Noh *novoNoh = new Noh(_dado);
         novoNoh->proximo = primeiro;
         primeiro->anterior = novoNoh;
         primeiro = novoNoh;
@@ -95,15 +95,15 @@ void ListaDuploEncadeada::InsereNoInicio(int dado)
 }
 
 // insere no final
-void ListaDuploEncadeada::InsereNoFim(int dado)
+void ListaDuploEncadeada::InsereNoFim(int _dado)
 {
     if (primeiro == NULL)
     {
-        Insere(dado);
+        Insere(_dado);
     }
     else
     {
-        Noh *novoNoh = new Noh(dado);
+        Noh *novoNoh = new Noh(_dado);
         ultimo->proximo = novoNoh;
         novoNoh->anterior = ultimo;
         ultimo = novoNoh;
@@ -112,31 +112,31 @@ void ListaDuploEncadeada::InsereNoFim(int dado)
 }
 
 // insere em determinada posicao
-void ListaDuploEncadeada::InsereNaPosicao(int dado, int pos)
+void ListaDuploEncadeada::InsereNaPosicao(int _dado, int _pos)
 {
     if (primeiro == NULL)
     {
-        Insere(dado);
+        Insere(_dado);
     }
-    else if (pos == 0) // insere no inicio
+    else if (_pos == 0) // insere no inicio
     {
-        InsereNoInicio(dado);
+        InsereNoInicio(_dado);
     }
-    else if (pos == tamanho) // insere no final
+    else if (_pos == tamanho) // insere no final
     {
-        InsereNoFim(dado);
+        InsereNoFim(_dado);
     }
     else //insere no meio da lista
     {
         Noh *aux = primeiro;
         int i = 0;
 
-        while (i < pos)
+        while (i < _pos)
         {
             aux = aux->proximo;
             i++;
         }
-        Noh *novoNoh = new Noh(dado);
+        Noh *novoNoh = new Noh(_dado);
         Noh *auxAnterior = aux->anterior;
         auxAnterior->proximo = novoNoh;
         novoNoh->anterior = aux->anterior;
